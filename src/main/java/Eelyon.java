@@ -12,7 +12,7 @@ public class Eelyon {
             System.out.println("List is empty");
         } else {
             for (int i = 0; i < listIndex; i++) {
-                System.out.println(i + 1 + "." + "[" + list[i].getStatusIcon() + "] " + list[i].description);
+                System.out.println(list[i]);
             }
         }
         System.out.println(LINE);
@@ -45,10 +45,12 @@ public class Eelyon {
         }
     }
 
-    public static void addTask(String task) {
-        list[listIndex] = new Task(task);
-        System.out.println(LINE + "added: " + list[listIndex].description + "\n" + LINE);
+    public static void addTask(Task task) {
+        list[listIndex] = task;
+        System.out.println(LINE + "added: " + list[listIndex].description + "\n");
         listIndex++;
+        System.out.printf("You now have %d tasks in the list\n", listIndex);
+        System.out.println(LINE);
     }
 
     public static void main(String[] args) {
@@ -76,8 +78,26 @@ public class Eelyon {
             case "bye":
                 isFinished = true;
                 break;
+            case "deadline":
+                String deadlineTask = input.substring(input.indexOf("deadline") + "deadline".length(), input.indexOf("/by")).trim();
+                String by = input.substring(input.indexOf("by") + "by".length()).trim();
+                Deadline newDeadline = new Deadline(deadlineTask,by);
+                addTask(newDeadline);
+                break;
+            case "event":
+                String eventTask = input.substring(input.indexOf("event") + "event".length(), input.indexOf("/from")).trim();
+                String from = input.substring(input.indexOf("from") + "from".length(), input.indexOf("/to")).trim();
+                String to = input.substring(input.indexOf("to") + "to".length()).trim();
+                Event newEvent = new Event(eventTask,from,to);
+                addTask(newEvent);
+                break;
+            case "todo":
+                String todoTask = input.substring(input.indexOf("todo") + "todo".length()).trim();
+                Todo newTodo = new Todo(todoTask);
+                addTask(newTodo);
+                break;
             default:
-                addTask(input);
+                System.out.println("Invalid input");
                 break;
             }
         }

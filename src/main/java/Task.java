@@ -11,4 +11,8 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String toString() {
+        return description;
+    }
+
 }
