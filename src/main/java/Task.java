@@ -12,7 +12,7 @@ public class Task {
     }
 
     public String toString() {
-        return description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
 }

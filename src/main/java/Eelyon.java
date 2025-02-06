@@ -12,6 +12,8 @@ public class Eelyon {
             System.out.println("List is empty");
         } else {
             for (int i = 0; i < listIndex; i++) {
+                int index = i + 1;
+                System.out.print(index + ".");
                 System.out.println(list[i]);
             }
         }
@@ -81,14 +83,14 @@ public class Eelyon {
             case "deadline":
                 String deadlineTask = input.substring(input.indexOf("deadline") + "deadline".length(), input.indexOf("/by")).trim();
                 String by = input.substring(input.indexOf("by") + "by".length()).trim();
-                Deadline newDeadline = new Deadline(deadlineTask,by);
+                Deadline newDeadline = new Deadline(deadlineTask, by);
                 addTask(newDeadline);
                 break;
             case "event":
                 String eventTask = input.substring(input.indexOf("event") + "event".length(), input.indexOf("/from")).trim();
                 String from = input.substring(input.indexOf("from") + "from".length(), input.indexOf("/to")).trim();
                 String to = input.substring(input.indexOf("to") + "to".length()).trim();
-                Event newEvent = new Event(eventTask,from,to);
+                Event newEvent = new Event(eventTask, from, to);
                 addTask(newEvent);
                 break;
             case "todo":
