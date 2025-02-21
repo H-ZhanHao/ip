@@ -16,6 +16,7 @@ public class CommandType {
         case "mark":
         case "unmark":
         case "list":
+        case "delete":
         case "bye": this.commandType = commandType; break;
         default: throw new IllegalArgumentException("Invalid Command! Try again.");
         }
