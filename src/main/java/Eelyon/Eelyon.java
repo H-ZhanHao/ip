@@ -268,6 +268,9 @@ public class Eelyon {
                     Todo newTodo = new Todo(todoTask);
                     addTask(newTodo);
                     break;
+                case "delete":
+                    deleteTask(Integer.parseInt(separatedInput[1]) - 1);
+                    break;
                 default:
                     System.out.println("Invalid input");
                     break;
