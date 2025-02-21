@@ -4,16 +4,20 @@ import Eelyon.Commands.*;
 import Eelyon.Exceptions.EmptyDescriptionException;
 import Eelyon.Exceptions.InvalidFormatException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Eelyon {
     static final int NUMBER_OF_TASKS = 100;
-    //static Task[] list = new Task[NUMBER_OF_TASKS];
     static ArrayList<Task> list = new ArrayList<>();
     static int listIndex = 0;
     static final String LINE = "____________________________________________________________\n";
+    static final String FILE_PATH = "src/main/java/Eelyon/data/data.txt";
 
     public static void printList() {
         System.out.println(LINE);
@@ -111,6 +115,84 @@ public class Eelyon {
         return commandType;
     }
 
+    public static void updateFile() throws IOException {
+        FileWriter fileWriter = new FileWriter(FILE_PATH);
+        String commandType = "";
+        StringBuilder fileInput = new StringBuilder();
+
+        for (Task task : list) {
+            if (task instanceof Event) {
+                commandType = "E";
+                fileInput.append("CommandType: ").append(commandType).append(" ").append("Description: ").append(task.getDescription()).append(" ").append("Done: ").append(task.isDone()).append(" ").append("From: ").append(((Event) task).getFrom()).append(" ").append("To: ").append(((Event) task).getTo()).append("\n");
+            } else if (task instanceof Todo) {
+                commandType = "T";
+                fileInput.append("CommandType: ").append(commandType).append(" ").append("Description: ").append(task.getDescription()).append(" ").append("Done: ").append(task.isDone()).append("\n");
+            } else if (task instanceof Deadline) {
+                commandType = "D";
+                fileInput.append("CommandType: ").append(commandType).append(" ").append("Description: ").append(task.getDescription()).append(" ").append("Done: ").append(task.isDone()).append(" ").append("By: ").append(((Deadline) task).getBy()).append("\n");
+            }
+        }
+        fileWriter.write(fileInput.toString());
+        fileWriter.close();
+    }
+
+    public static Task createTaskFromLine(String line) throws IllegalArgumentException {
+        String[] parts = line.split(" ");
+
+        String commandType = "";
+        String description = "";
+        boolean isDone = false;
+        String by = "";
+        String from = "";
+        String to = "";
+
+        commandType = line.substring(line.indexOf("CommandType: ") + "CommandType: ".length(), line.indexOf("Description:")).trim();
+        description = line.substring(line.indexOf("Description: ") + "Description: ".length(), line.indexOf("Done:")).trim();
+        isDone = line.substring(line.indexOf("Done: ")).contains("true");
+
+        Task task = null;
+        switch (commandType) {
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            by = line.substring(line.indexOf("By: ") + "By: ".length());
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            from = line.substring(line.indexOf("From: ") + "From: ".length(), line.indexOf("To:") );
+            to = line.substring(line.indexOf("To: ") + "To: ".length());
+            task = new Event(description, from, to);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown command type: " + commandType);
+        }
+
+        task.setDone(isDone);
+        return task;
+    }
+
+
+    public static void loadFile(File file) throws FileNotFoundException {
+        Scanner scanner = new Scanner(file);
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+
+            Task task = null;
+            try {
+                task = createTaskFromLine(line);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+            list.add(task);
+        }
+
+        scanner.close();
+    }
+
+
+
     public static void main(String[] args) {
         boolean isFinished = false;
         boolean isInputValid = false;
@@ -119,6 +201,27 @@ public class Eelyon {
         Scanner in = new Scanner(System.in);
 
         System.out.println(LINE + "Hello! I'm Eelyon\n" + "What can I do for you?\n" + LINE);
+
+        try {
+
+            File f = new File(FILE_PATH);
+            if (f.createNewFile()) {
+                System.out.println("Save File Created Successfully");
+            } else {
+                System.out.println("Save file already exists. Loading from file...");
+                try {
+                    loadFile(f);
+                } catch (FileNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            System.out.println(LINE);
+        } catch (IOException e) {
+            System.out.println(LINE);
+            System.out.println("An error occurred while creating the file.");
+            System.out.println(e.getMessage());
+            System.out.println(LINE);
+        }
 
         while (!isFinished) {
             input = in.nextLine();
@@ -165,13 +268,18 @@ public class Eelyon {
                     Todo newTodo = new Todo(todoTask);
                     addTask(newTodo);
                     break;
-                case "delete":
-                    int deleteIndex = Integer.parseInt(input.substring(input.indexOf("delete") + "delete".length()).trim()) - 1;
-                    deleteTask(deleteIndex);
-                    break;
                 default:
                     System.out.println("Invalid input");
                     break;
+                }
+
+                try {
+                    updateFile();
+                } catch (IOException e) {
+                    System.out.println(LINE);
+                    System.out.println("File didn't update properly");
+                    System.out.println(e.getMessage());
+                    System.out.println(LINE);
                 }
             }
         }
