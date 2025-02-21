@@ -82,7 +82,7 @@ public class Eelyon {
 
     public static void checkDescription(CommandType commandType, String input) {
         if (commandType.getCommandType().equals("todo")) {
-            if(input.substring(input.indexOf("todo") + "todo".length()).trim().length() <= 0) {
+            if (input.substring(input.indexOf("todo") + "todo".length()).trim().length() <= 0) {
                 throw new EmptyDescriptionException("No empty descriptions allowed dawg. Try again.");
             }
         } else if (input.substring(input.indexOf(commandType.getCommandType()) + commandType.getCommandType().length(), input.indexOf(commandType.getEndCommand())).trim().length() <= 0) {
@@ -160,7 +160,7 @@ public class Eelyon {
             task = new Deadline(description, by);
             break;
         case "E":
-            from = line.substring(line.indexOf("From: ") + "From: ".length(), line.indexOf("To:") );
+            from = line.substring(line.indexOf("From: ") + "From: ".length(), line.indexOf("To:"));
             to = line.substring(line.indexOf("To: ") + "To: ".length());
             task = new Event(description, from, to);
             break;
@@ -192,7 +192,6 @@ public class Eelyon {
     }
 
 
-
     public static void main(String[] args) {
         boolean isFinished = false;
         boolean isInputValid = false;
@@ -205,6 +204,11 @@ public class Eelyon {
         try {
 
             File f = new File(FILE_PATH);
+
+            if (f.getParentFile().mkdirs()) {
+                System.out.println("Directory created");
+            }
+
             if (f.createNewFile()) {
                 System.out.println("Save File Created Successfully");
             } else {
@@ -228,7 +232,7 @@ public class Eelyon {
             separatedInput = input.trim().split(" ");
             CommandType commandType = null;
             try {
-                commandType = inputCheck(separatedInput[0],input);
+                commandType = inputCheck(separatedInput[0], input);
             } catch (IllegalArgumentException error) { //Check for valid command
                 System.out.println(LINE);
                 System.out.println(error.getMessage());
