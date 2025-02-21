@@ -4,61 +4,75 @@ import Eelyon.Commands.*;
 import Eelyon.Exceptions.EmptyDescriptionException;
 import Eelyon.Exceptions.InvalidFormatException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Eelyon {
     static final int NUMBER_OF_TASKS = 100;
-    static Task[] list = new Task[NUMBER_OF_TASKS];
+    //static Task[] list = new Task[NUMBER_OF_TASKS];
+    static ArrayList<Task> list = new ArrayList<>();
     static int listIndex = 0;
     static final String LINE = "____________________________________________________________\n";
 
     public static void printList() {
         System.out.println(LINE);
-        if (listIndex == 0) {
+        if (list.isEmpty()) {
             System.out.println("List is empty");
         } else {
-            for (int i = 0; i < listIndex; i++) {
-                int index = i + 1;
-                System.out.print(index + ".");
-                System.out.println(list[i]);
+            for (Task task : list) {
+                System.out.print(list.indexOf(task) + 1 + ".");
+                System.out.println(task);
             }
         }
         System.out.println(LINE);
     }
 
     public static void setMarked(int index) {
-        if (index >= listIndex || index < 0) {
+        if (index >= list.size() || index < 0) {
             System.out.println(LINE);
             System.out.println("Invalid index");
             System.out.println(LINE);
             return;
         } else {
-            list[index].setDone(true);
+            list.get(index).setDone(true);
             System.out.println(LINE);
-            System.out.println("Nice! I've marked this task as done:\n" + "[" + list[index].getStatusIcon() + "] " + list[index].getDescription());
+            System.out.println("Nice! I've marked this task as done:\n" + "[" + list.get(index).getStatusIcon() + "] " + list.get(index).getDescription());
             System.out.println(LINE);
         }
     }
 
     public static void setUnmarked(int index) {
-        if (index >= listIndex || index < 0) {
+        if (index >= list.size() || index < 0) {
             System.out.println(LINE);
             System.out.println("Invalid index");
             System.out.println(LINE);
         } else {
-            list[index].setDone(false);
+            list.get(index).setDone(false);
             System.out.println(LINE);
-            System.out.println("Ok, I've marked this task as not done yet:\n" + "[" + list[index].getStatusIcon() + "] " + list[index].getDescription());
+            System.out.println("Ok, I've marked this task as not done yet:\n" + "[" + list.get(index).getStatusIcon() + "] " + list.get(index).getDescription());
+            System.out.println(LINE);
+        }
+    }
+
+    public static void deleteTask(int index) {
+        if (index >= list.size() || index < 0) {
+            System.out.println(LINE);
+            System.out.println("Invalid index");
+            System.out.println(LINE);
+        } else {
+            System.out.println(LINE);
+            System.out.println("Noted. Removing this task:\n" + list.get(index));
+            list.remove(index);
+            System.out.printf("Now you have %d tasks in the list:\n", list.size());
             System.out.println(LINE);
         }
     }
 
     public static void addTask(Task task) {
-        list[listIndex] = task;
-        System.out.println(LINE + "added: " + list[listIndex].getDescription() + "\n");
-        listIndex++;
-        System.out.printf("You now have %d tasks in the list\n", listIndex);
+        list.add(task);
+        System.out.println(LINE + "added: " + task.getDescription() + "\n");
+        System.out.printf("You now have %d tasks in the list\n", list.size());
         System.out.println(LINE);
     }
 
@@ -82,7 +96,7 @@ public class Eelyon {
         CommandType commandType = new CommandType();
         try {
             commandType.setCommandType(command); //Checks for valid command
-            if (!commandType.getCommandType().equals("mark") && !commandType.getCommandType().equals("unmark") && !commandType.getCommandType().equals("list") && !commandType.getCommandType().equals("bye")) {
+            if (!commandType.getCommandType().equals("mark") && !commandType.getCommandType().equals("delete") && !commandType.getCommandType().equals("unmark") && !commandType.getCommandType().equals("list") && !commandType.getCommandType().equals("bye")) {
                 checkFormat(commandType, input);
                 checkDescription(commandType, input);
             }
@@ -150,6 +164,10 @@ public class Eelyon {
                     String todoTask = input.substring(input.indexOf("todo") + "todo".length()).trim();
                     Todo newTodo = new Todo(todoTask);
                     addTask(newTodo);
+                    break;
+                case "delete":
+                    int deleteIndex = Integer.parseInt(input.substring(input.indexOf("delete") + "delete".length()).trim()) - 1;
+                    deleteTask(deleteIndex);
                     break;
                 default:
                     System.out.println("Invalid input");
