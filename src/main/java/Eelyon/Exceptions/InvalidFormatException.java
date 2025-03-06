@@ -1,4 +1,4 @@
-package Eelyon.Exceptions;
+package Eelyon.exceptions;
 
 public class InvalidFormatException extends RuntimeException {
     public InvalidFormatException(String message) {

@@ -1,4 +1,4 @@
-package Eelyon.Commands;
+package Eelyon.commands;
 
 public class Deadline extends Task {
     protected String by;

@@ -1,6 +1,6 @@
-package Eelyon.Commands;
+package Eelyon.commands;
 
-import Eelyon.Exceptions.EmptyDescriptionException;
+import Eelyon.exceptions.EmptyDescriptionException;
 
 public abstract class Task {
     protected String description;
