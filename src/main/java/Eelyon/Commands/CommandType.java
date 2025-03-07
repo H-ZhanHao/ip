@@ -4,7 +4,7 @@ public class CommandType {
     private String commandType;
     private boolean isValid = true;
     private final String[] COMMAND_LIST = new String[]{
-            "deadline", "event", "todo", "mark", "unmark", "list", "delete", "bye"
+            "deadline", "event", "todo", "mark", "unmark", "list", "delete", "bye", "find"
     };
 
     public String getCommandType() {

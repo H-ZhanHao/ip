@@ -5,7 +5,7 @@ import Eelyon.commands.Task;
 import java.util.ArrayList;
 
 public class TaskList {
-    static ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> list = new ArrayList<>();
 
     public void addTask(Task task) {
         list.add(task);
