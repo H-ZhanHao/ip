@@ -5,9 +5,18 @@ import Eelyon.commands.admincommands.*;
 import Eelyon.exceptions.EmptyDescriptionException;
 import Eelyon.exceptions.InvalidFormatException;
 
+/**
+ * Parses user input and converts it into executable commands.
+ */
 public class Parser {
     private Ui ui = new Ui();
 
+    /**
+     * Parses the user input command and returns the corresponding command object.
+     *
+     * @param fullCommand The full command input by the user.
+     * @return A {@code Command} object corresponding to the parsed input.
+     */
     public Command parse(String fullCommand) {
         String command = fullCommand.split(" ")[0];
         CommandType commandType = new CommandType();
@@ -73,6 +82,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Decodes a task from storage
+     *
+     * @param line The string containing task data from storage.
+     * @return A Task object reconstructed from the stored data.
+     * @throws IllegalArgumentException If the task format is invalid.
+     */
     public static Task decodeStorageData(String line) throws IllegalArgumentException {
         String[] parts = line.split(" ");
 
