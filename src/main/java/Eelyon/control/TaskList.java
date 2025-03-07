@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Represents a list of tasks and provides methods to manipulate them.
  */
 public class TaskList {
-    static ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> list = new ArrayList<>();
 
     /**
      * Adds a task to the list.

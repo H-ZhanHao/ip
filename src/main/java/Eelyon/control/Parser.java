@@ -57,6 +57,9 @@ public class Parser {
                 return new DeleteCommand(Integer.parseInt(fullCommand.split(" ")[1]) - 1);
             case "bye":
                 return new ExitCommand();
+            case "find":
+                String keyword = fullCommand.substring(fullCommand.indexOf("find") + "find".length()).trim();
+                return new FindCommand(keyword);
             default:
                 return null;
             }

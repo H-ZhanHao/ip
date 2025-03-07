@@ -40,6 +40,17 @@ public class Ui {
         Ui.printLine();
     }
 
+    public static void printFoundTasks(TaskList list, String keyword) {
+        Ui.printLine();
+        System.out.println("Here are the tasks matching the keyword: " + keyword);
+        if (list.getSize() <= 0) {
+            System.out.println("No items found");
+        } else {
+            list.printTasks();
+        }
+        Ui.printLine();
+    }
+
     /**
      * Prints a message after adding a task.
      *
