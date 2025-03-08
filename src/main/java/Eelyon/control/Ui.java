@@ -123,6 +123,11 @@ public class Ui {
     public static void printWelcomeMessage() {
         Ui.printLine();
         System.out.println("Hello! I'm Eelyon\n" + "What can I do for you?\n");
+        System.out.println(
+               "      ▄▀▄     ▄▀▄\n" +
+               "     ▄█░░▀▀▀▀▀░░█▄\n" +
+               " ▄▄  █░░░░░░░░░░░█  ▄▄\n" +
+               "█▄▄█ █░░▀░░┬░░▀░░█ █▄▄█\n");
         Ui.printLine();
     }
 }

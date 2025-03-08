@@ -40,12 +40,12 @@ public class Parser {
                 return new AddCommand(new Todo(todoDescription));
             case "deadline":
                 String deadlineDescription = fullCommand.substring(fullCommand.indexOf("deadline") + "deadline".length(), fullCommand.indexOf("/by")).trim();
-                String by = fullCommand.substring(fullCommand.indexOf("by") + "by".length()).trim();
+                String by = fullCommand.substring(fullCommand.indexOf("/by") + "/by".length()).trim();
                 return new AddCommand(new Deadline(deadlineDescription, by));
             case "event":
                 String eventDescription = fullCommand.substring(fullCommand.indexOf("event") + "event".length(), fullCommand.indexOf("/from")).trim();
-                String from = fullCommand.substring(fullCommand.indexOf("from") + "from".length(), fullCommand.indexOf("/to")).trim();
-                String to = fullCommand.substring(fullCommand.indexOf("to") + "to".length()).trim();
+                String from = fullCommand.substring(fullCommand.indexOf("/from") + "/from".length(), fullCommand.indexOf("/to")).trim();
+                String to = fullCommand.substring(fullCommand.indexOf("/to") + "/to".length()).trim();
                 return new AddCommand(new Event(eventDescription, from, to));
             case "list":
                 return new ListCommand();
