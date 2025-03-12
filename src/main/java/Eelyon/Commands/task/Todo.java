@@ -1,4 +1,4 @@
-package Eelyon.commands;
+package Eelyon.commands.task;
 
 /**
  * Represents a to-do task. Inherits from the Task class.

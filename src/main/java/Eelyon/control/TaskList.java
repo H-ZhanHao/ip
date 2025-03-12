@@ -1,6 +1,6 @@
 package Eelyon.control;
 
-import Eelyon.commands.Task;
+import Eelyon.commands.task.Task;
 
 import java.util.ArrayList;
 

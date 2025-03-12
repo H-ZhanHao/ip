@@ -1,6 +1,6 @@
 package Eelyon.commands.admincommands;
 
-import Eelyon.commands.Task;
+import Eelyon.commands.task.Task;
 import Eelyon.control.TaskList;
 import Eelyon.control.Ui;
 

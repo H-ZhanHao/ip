@@ -1,10 +1,6 @@
-package Eelyon;
+package Eelyon.control;
 
 import Eelyon.commands.admincommands.Command;
-import Eelyon.control.Parser;
-import Eelyon.control.Storage;
-import Eelyon.control.TaskList;
-import Eelyon.control.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;

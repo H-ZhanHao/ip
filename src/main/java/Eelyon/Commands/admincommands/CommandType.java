@@ -1,4 +1,4 @@
-package Eelyon.commands;
+package Eelyon.commands.admincommands;
 
 /**
  * Represents the type of a command. It validates and processes the command type

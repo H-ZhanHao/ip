@@ -1,4 +1,4 @@
-package Eelyon.commands;
+package Eelyon.commands.task;
 
 import Eelyon.exceptions.EmptyDescriptionException;
 

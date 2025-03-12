@@ -1,4 +1,4 @@
-package Eelyon.commands;
+package Eelyon.commands.task;
 
 /**
  * Represents an event task with a start and end time. Inherits from the Task class.

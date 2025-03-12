@@ -1,7 +1,19 @@
 package Eelyon.control;
 
-import Eelyon.commands.*;
-import Eelyon.commands.admincommands.*;
+import Eelyon.commands.admincommands.AddCommand;
+import Eelyon.commands.admincommands.Command;
+import Eelyon.commands.admincommands.CommandType;
+import Eelyon.commands.admincommands.ListCommand;
+import Eelyon.commands.admincommands.MarkCommand;
+import Eelyon.commands.admincommands.UnmarkCommand;
+import Eelyon.commands.admincommands.DeleteCommand;
+import Eelyon.commands.admincommands.ExitCommand;
+import Eelyon.commands.admincommands.FindCommand;
+import Eelyon.commands.admincommands.NullCommand;
+import Eelyon.commands.task.Deadline;
+import Eelyon.commands.task.Event;
+import Eelyon.commands.task.Task;
+import Eelyon.commands.task.Todo;
 import Eelyon.exceptions.EmptyDescriptionException;
 import Eelyon.exceptions.InvalidFormatException;
 
@@ -72,16 +84,16 @@ public class Parser {
     private static void checkDescription(CommandType commandType, String input) {
         if (commandType.getCommandType().equals("todo")) {
             if (input.substring(input.indexOf("todo") + "todo".length()).trim().isEmpty()) {
-                throw new EmptyDescriptionException("No empty descriptions allowed dawg. Try again.");
+                throw new EmptyDescriptionException("No empty descriptions allowed. Try again.");
             }
         } else if (input.substring(input.indexOf(commandType.getCommandType()) + commandType.getCommandType().length(), input.indexOf(commandType.getEndCommand())).trim().isEmpty()) {
-            throw new EmptyDescriptionException("No empty descriptions allowed dawg. Try again.");
+            throw new EmptyDescriptionException("No empty descriptions allowed. Try again.");
         }
     }
 
     private static void checkFormat(CommandType commandType, String input) {
         if (!input.contains(commandType.getEndCommand())) {
-            throw new InvalidFormatException("Input is kinda sus. Try again.");
+            throw new InvalidFormatException("Input is kinda weird. Try again.");
         }
     }
 

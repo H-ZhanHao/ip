@@ -1,9 +1,9 @@
 package Eelyon.control;
 
-import Eelyon.commands.Deadline;
-import Eelyon.commands.Event;
-import Eelyon.commands.Task;
-import Eelyon.commands.Todo;
+import Eelyon.commands.task.Deadline;
+import Eelyon.commands.task.Event;
+import Eelyon.commands.task.Task;
+import Eelyon.commands.task.Todo;
 import Eelyon.commands.admincommands.LoadDataCommand;
 
 import java.io.File;

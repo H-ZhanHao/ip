@@ -1,4 +1,4 @@
-package Eelyon.commands;
+package Eelyon.commands.task;
 
 /**
  * Represents a task that has a deadline. Inherits from the Task class.
