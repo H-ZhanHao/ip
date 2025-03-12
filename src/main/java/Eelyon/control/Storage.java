@@ -100,7 +100,7 @@ public class Storage {
                         .append(" Description: ").append(task.getDescription())
                         .append(" Done: ").append(task.isDone())
                         .append(" From: ").append(((Event) task).getFrom())
-                        .append(" To: ").append(((Event) task).getTo())
+                        .append("To: ").append(((Event) task).getTo())
                         .append("\n");
             } else if (task instanceof Todo) {
                 commandType = "T";
