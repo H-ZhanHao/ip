@@ -29,9 +29,9 @@ public class Eelyon {
         while (!isFinished) {
             input = in.nextLine();
 
-            Command c = parser.parse(input);
-            c.execute(taskList, ui);
-            isFinished = c.isExit();
+            Command centralCommand = parser.parse(input);
+            centralCommand.execute(taskList, ui);
+            isFinished = centralCommand.isExit();
 
             try {
                 Storage.updateFile(taskList);
